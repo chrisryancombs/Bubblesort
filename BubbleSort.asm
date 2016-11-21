@@ -22,7 +22,8 @@ main:
 
     jal        readnums
 
-    li         $t2, 0
+    li         $t2, 4
+    li         $t1, 0
     sub        $s2, $s3, 4
     jal        bsort
 
@@ -105,12 +106,13 @@ bsort:
     add        $t5, $t2, 4
     lw         $t6, array($t2)           # save current val and one val ahead
     lw         $t7, array($t5)
-    bge       $t7, $t6, skipswap             # ignore swap if need be
+    bge        $t7, $t6, skipswap         # ignore swap if need be
 
 
 
     sw         $t6, array($t5)           # swap
     sw         $t7, array($t2)
+
 
     addi       $t2, 4                    # increment loop counter
     j          bsort
@@ -120,9 +122,9 @@ skipswap:
     j          bsort                     # jump back to next iteration of bsort
 
 outsideloop:
-    li         $t2, 0
+    li         $t2, 4
     addi       $t1, 1
-    beq        $t1, $s3, endreadnums     # once we have looped enough times, return to main
+    beq        $t1, $s1, endreadnums     # once we have looped enough times, return to main
     j          bsort
 
 printnums:
